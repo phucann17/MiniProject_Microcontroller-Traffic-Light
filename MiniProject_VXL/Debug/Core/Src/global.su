@@ -1,0 +1,11 @@
+../Core/Src/global.c:17:6:GPIO_Init	32	static
+../Core/Src/global.c:56:6:ResetLight1	8	static
+../Core/Src/global.c:62:6:ResetLight2	8	static
+../Core/Src/global.c:66:6:RedLight1	8	static
+../Core/Src/global.c:70:6:YellowLight1	8	static
+../Core/Src/global.c:75:6:GreenLight1	8	static
+../Core/Src/global.c:79:6:RedLight2	8	static
+../Core/Src/global.c:83:6:YellowLight2	8	static
+../Core/Src/global.c:87:6:GreenLight2	8	static
+../Core/Src/global.c:92:6:BlinkLed	8	static
+../Core/Src/global.c:96:6:Run_Traffic_Light	8	static
