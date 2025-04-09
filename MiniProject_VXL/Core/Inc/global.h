@@ -1,33 +1,29 @@
+/*
+ * global.h
+ *
+ *  Created on: Apr 3, 2025
+ *      Author: Admin
+ */
+#include "stdio.h"
+#include "string.h"
+#include "main.h"
+#include "button.h"
+#include "fsm_setting.h"
+#include "fsm_automatic.h"
+#include "fsm_manual.h"
+#include "i2c-lcd.h"
+#include "scheduler.h"
 #ifndef INC_GLOBAL_H_
 #define INC_GLOBAL_H_
 
-//INCLUDE LIBRARY
-#include "main.h"
-#include "button.h"
-#include "scheduler.h"
-#include "fsm_automatic.h"
-#include "fsm_manual.h"
-#include "fsm_setting.h"
-#include "i2c-lcd.h"
-#include "string.h"
-#include "stdio.h"
-
-//DEFINE GPIO PIN - PORT A
-//#define LED_PINK GPIO_PIN_1
-//#define LED_RED_1  GPIO_PIN_4
-//#define LED_YELLOW_1  GPIO_PIN_5
-//#define LED_GREEN_1  GPIO_PIN_6
-//#define LED_RED_2  GPIO_PIN_7
-//#define LED_YELLOW_2  GPIO_PIN_8
-//#define LED_GREEN_2  GPIO_PIN_9
-
 #define LED_PINK GPIO_PIN_5 //PA5
 
-#define A1 GPIO_PIN_5 //PB5
-#define B1 GPIO_PIN_3 //PB3
-#define A2 GPIO_PIN_10 //PB10
-#define B2 GPIO_PIN_4	//PB4
-
+#define A1 GPIO_PIN_5 //PB5 red1
+#define B1 GPIO_PIN_3 //PB3 green1
+#define A2 GPIO_PIN_10 //PB10red2
+#define B2 GPIO_PIN_4	//PB4green2
+//#define Y1 GPIO_PIN_1
+//#define Y2 GPIO_PIN_2
 //DEFINE STATE
 #define INIT 0
 
@@ -44,7 +40,9 @@
 #define YELLOW_LED_SET 32
 #define GREEN_LED_SET 33
 
-
+//gpioA
+#define TX GPIO_PIN_2
+#define RX GPIO_PIN_3
 //DEFINE BUTTON FLAG
 
 #define up_button 0
