@@ -1,9 +1,3 @@
-/*
- * global.h
- *
- *  Created on: Apr 3, 2025
- *      Author: Admin
- */
 #include "stdio.h"
 #include "string.h"
 #include "main.h"
