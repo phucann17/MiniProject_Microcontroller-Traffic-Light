@@ -1,10 +1,3 @@
-/*
- * scheduler.h
- *
- *  Created on: Nov 13, 2024
- *      Author: ASUS
- */
-
 #ifndef INC_SCHEDULER_H_
 #define INC_SCHEDULER_H_
 #include <stdint.h>
