@@ -1,6 +1,4 @@
 #include "global.h"
-
-//DEFINE VARIABLE
 int time_red = 5 * scale ;
 int time_yellow = 2 * scale  ; // red = green + yellow
 int time_green = 3 * scale ;
@@ -12,8 +10,7 @@ int count2 =0; //COUNTDOWN TRAFFIC LIGHT 2
 int count3 =scale; //COUNTDOWN TOGGLE LED
 int uart_mode1=0;
 int uart_press=0;
-int timeout=25;
-//FUNCTION
+int timeout=2;
 void GPIO_Init(void){
 	  GPIO_InitTypeDef GPIO_InitStruct = {0};
 	/* USER CODE BEGIN MX_GPIO_Init_1 */
@@ -56,37 +53,48 @@ void GPIO_Init(void){
 void ResetLight1(){
 	HAL_GPIO_WritePin(GPIOB,A1, RESET);
 	HAL_GPIO_WritePin(GPIOB,B1 , RESET);
+	// HAL_GPIO_WritePin(GPIOB,Y1 , RESET);
+}
 
+void RedLight1(){
+	HAL_GPIO_WritePin(GPIOB,A1, SET);
+	HAL_GPIO_WritePin(GPIOB,B1, SET);
+	// HAL_GPIO_WritePin(GPIOB,Y1 , RESET);
+}
+
+void YellowLight1(){
+	HAL_GPIO_WritePin(GPIOB,A1, SET);
+	HAL_GPIO_WritePin(GPIOB,B1 , RESET);
+	// HAL_GPIO_WritePin(GPIOB,Y1 , SET);
+}
+
+void GreenLight1(){
+	HAL_GPIO_WritePin(GPIOB,A1, RESET);
+	HAL_GPIO_WritePin(GPIOB,B1, SET);
+	// HAL_GPIO_WritePin(GPIOB,Y1 , RESET);
+}
+
+void RedLight2(){
+	HAL_GPIO_WritePin(GPIOB,A2, SET);
+	HAL_GPIO_WritePin(GPIOB,B2 , SET);
+	// HAL_GPIO_WritePin(GPIOB,Y2 , RESET);
+}
+
+void YellowLight2(){
+	HAL_GPIO_WritePin(GPIOB,A2, SET);
+	HAL_GPIO_WritePin(GPIOB,B2 , RESET);
+	// HAL_GPIO_WritePin(GPIOB,Y2 , SET);
+}
+void GreenLight2(){
+	HAL_GPIO_WritePin(GPIOB,A2, RESET);
+	HAL_GPIO_WritePin(GPIOB,B2 , SET);
+	// HAL_GPIO_WritePin(GPIOB,Y1 , RESET);
 }
 
 void ResetLight2(){
 	HAL_GPIO_WritePin(GPIOB,A2, RESET);
 	HAL_GPIO_WritePin(GPIOB,B2 , RESET);
-}
-void RedLight1(){
-	HAL_GPIO_WritePin(GPIOB,A1, SET);
-	HAL_GPIO_WritePin(GPIOB,B1 , SET);
-}
-void YellowLight1(){
-	HAL_GPIO_WritePin(GPIOB,A1, SET);
-	HAL_GPIO_WritePin(GPIOB,B1 , RESET);
-}
-
-void GreenLight1(){
-	HAL_GPIO_WritePin(GPIOB,A1, RESET);
-	HAL_GPIO_WritePin(GPIOB,B1 , SET);
-}
-void RedLight2(){
-	HAL_GPIO_WritePin(GPIOB,A2, SET);
-	HAL_GPIO_WritePin(GPIOB,B2 , SET);
-}
-void YellowLight2(){
-	HAL_GPIO_WritePin(GPIOB,A2, SET);
-	HAL_GPIO_WritePin(GPIOB,B2 , RESET);
-}
-void GreenLight2(){
-	HAL_GPIO_WritePin(GPIOB,A2, RESET);
-	HAL_GPIO_WritePin(GPIOB,B2 , SET);
+	// HAL_GPIO_WritePin(GPIOB,Y2 , RESET);
 }
 
 void BlinkLed(){
