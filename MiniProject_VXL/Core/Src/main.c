@@ -325,61 +325,45 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  UNUSED(huart);
-  uint8_t i;
-  if (huart->Instance == USART2)
-  {
-    if (rx_idx == 0)
-    {
-      for (i = 0; i < 100; i++)
-      {
-        rx_buffer[i] = 0;
-      }
-    } // RESET RX BUFFER
+    UNUSED(huart);
 
-    if (rx_data[0] != 13)
-    {
-      rx_buffer[rx_idx++] = rx_data[0];
+    if (huart->Instance == USART2) {
+        if (rx_data[0] != 13) {  //if not enter
+            rx_buffer[rx_idx++] = rx_data[0];  // save in bufer
+            if (rx_idx >= 100) rx_idx = 0;    
+        } else {
+            rx_buffer[rx_idx] = '\0'; // Kết thúc chuỗi
+            transfer_clpt = 1;
+            HAL_UART_Transmit(&huart2, "\n\r", 2, 100);
+
+            // So sánh lệnh:
+            if (!strcmp(rx_buffer, "SHOW TIME")) {
+                uart_mode1 = 1;
+            } else if (!strcmp(rx_buffer, "END")) {
+                uart_mode1 = 0;
+            } else if (!strcmp(rx_buffer, "MANUAL")) {
+                ResetLight1();
+                ResetLight2();
+                status1 = RED_GREEN_MAN;
+                status2 = RED_GREEN_MAN;
+                count1 = 10 * scale;
+                count2 = 1;
+            } else if (!strcmp(rx_buffer, "AUTO")) {
+                status1 = INIT;
+                status2 = INIT;
+            } else if (status1 / 20 == 1 && !strcmp(rx_buffer, "1")) {
+                uart_press = 1;
+            } else {
+                HAL_UART_Transmit(&huart2, "SYNTAX ERROR\n\r", 14, 100);
+            }
+
+            rx_idx = 0; // Reset để nhập lệnh mới
+        }
+
+
+        HAL_UART_Transmit(&huart2, rx_data, 1, 100);
+        HAL_UART_Receive_IT(&huart2, rx_data, 1); // Chuẩn bị nhận tiếp
     }
-    else
-    {
-      rx_idx = 0;
-      transfer_clpt = 1;
-      HAL_UART_Transmit(&huart2, "\n\r", 2, 100);
-      if (!strcmp(rx_buffer, "SHOW TIME"))
-      {
-    	 uart_mode1 = 1;
-      }
-      else if (!strcmp(rx_buffer, "END"))
-      {
-         uart_mode1 = 0;
-      }
-      else if (!strcmp(rx_buffer, "MANUAL"))
-      {
-			ResetLight1();
-			ResetLight2();
-			status1 = RED_GREEN_MAN;
-			status2 = RED_GREEN_MAN;
-			count1 = 10*scale;
-			count2 = 1;
-      }
-      else if (!strcmp(rx_buffer, "AUTO"))
-      {
-    		status1 = INIT;
-    		status2 = INIT;
-    		lcd_clear_display();
-      }
-      else if(status1/20==1 && !strcmp(rx_buffer, "1")){
-    	  uart_press=1;
-      }
-      else
-      {
-        HAL_UART_Transmit(&huart2, "SYNTAX ERROR\n\r", 14, 100);
-      }
-    }
-    HAL_UART_Receive_IT(&huart2, rx_data, 1);
-    HAL_UART_Transmit(&huart2, rx_data, strlen(rx_data), 100);
-  }
 }
 /* USER CODE END 4 */
 
